@@ -1,0 +1,19 @@
+安装依赖与准备环境# 切到项目根目录
+cd ~/Desktop/lux-xiaokai
+
+# 赋予脚本执行权限（首次）
+chmod +x tools/setup_mac_env.sh tools/build_mac.sh
+chmod +x tools/setup_mac_env.sh
+
+
+# 运行环境安装脚本
+./tools/setup_mac_env.sh
+
+要求已安装 Homebrew（如果没安装，先访问 https://brew.sh）。
+脚本默认安装 Python@3.11，创建 .venv，安装 requirements.txt、pyinstaller，可选安装 create-dmg。
+
+# 仍在项目根目录
+
+
+chmod +x tools/build_mac.sh
+./tools/build_mac.sh

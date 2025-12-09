@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "python-desktop-translator"
+version = "0.1.0"
+description = "A desktop translation software with floating window functionality."
+authors = ["Your Name <youremail@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+PyQt5 = "^5.15.4"
+requests = "^2.26.0"
+pyperclip = "^1.8.2"
+pydub = "^0.25.1"
+speechrecognition = "^3.8.1"
+gtts = "^2.2.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.9b0"
+mypy = "^0.910"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

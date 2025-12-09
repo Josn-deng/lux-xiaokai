@@ -1,0 +1,90 @@
+name: macOS Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      build_dmg:
+        description: 'Build DMG (requires create-dmg)'
+        required: false
+        default: 'true'
+      python_version:
+        description: 'Python version'
+        required: false
+        default: '3.11'
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ github.event.inputs.python_version || '3.11' }}
+
+      - name: Install Homebrew packages
+        run: |
+          brew update
+          brew install create-dmg || true
+
+      - name: Create virtualenv and install deps
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          python -m pip install --upgrade pip wheel setuptools
+          python -m pip install -r python-desktop-translator/requirements.txt
+          python -m pip install pyinstaller
+
+      - name: Build app with PyInstaller
+        run: |
+          source venv/bin/activate
+          pyinstaller pyinstaller.spec --clean
+
+      - name: List dist
+        run: |
+          ls -la dist
+
+      - name: Build DMG (optional)
+        if: ${{ github.event.inputs.build_dmg == 'true' }}
+        run: |
+          source venv/bin/activate
+          if command -v create-dmg >/dev/null 2>&1; then
+            create-dmg \
+              --volname "小铠同学 安装" \
+              --window-pos 200 120 \
+              --window-size 600 400 \
+              --icon-size 100 \
+              --app-drop-link 425 180 \
+              "小铠同学.dmg" \
+              "dist/小铠同学.app"
+          else
+            echo "create-dmg not installed, skipping DMG"
+          fi
+
+      - name: Upload Artifacts (.app)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-app
+          path: dist/小铠同学.app
+
+      - name: Upload Artifacts (.dmg)
+        if: ${{ github.event.inputs.build_dmg == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-dmg
+          path: 小铠同学.dmg
+
+      - name: Create Release and Upload
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/小铠同学.app
+            小铠同学.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

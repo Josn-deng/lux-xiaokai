@@ -1,0 +1,34 @@
+{
+    "app_name": "Python Desktop Translator",
+    "welcome_message": "Welcome to the Python Desktop Translator!",
+    "ai_translate": {
+        "title": "AI Translation",
+        "description": "Translate text using AI."
+    },
+    "text_polish": {
+        "title": "Text Polish",
+        "description": "Enhance and refine your text."
+    },
+    "ai_qa": {
+        "title": "AI Q&A",
+        "description": "Ask questions and get answers from AI."
+    },
+    "speech_translate": {
+        "title": "Speech Translation",
+        "description": "Translate spoken language."
+    },
+    "settings": {
+        "title": "Settings",
+        "ai_server": "AI Server",
+        "model": "Model",
+        "api_key": "API Key",
+        "auto_start": "Auto Start"
+    },
+    "error": {
+        "network": "Network error, please check your connection.",
+        "translation_failed": "Translation failed, please try again."
+    },
+    "success": {
+        "translation_successful": "Translation successful!"
+    }
+}
