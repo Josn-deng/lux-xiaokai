@@ -5,7 +5,11 @@ import os
 from pathlib import Path
 
 # 项目根路径与入口
-repo_root = Path(__file__).resolve().parent
+if '__file__' in globals():
+    repo_root = Path(__file__).resolve().parent
+else:
+    # Fallback for cases where __file__ is not defined
+    repo_root = Path(os.getcwd())
 entry = repo_root / 'python-desktop-translator' / 'src' / 'main.py'
 
 # 图标与资源（macOS 上 --icon 建议使用 .icns；此处交由 build 脚本传入）
