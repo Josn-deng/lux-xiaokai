@@ -20,6 +20,11 @@ conduct_png = repo_root / 'python-desktop-translator' / 'src' / 'icons' / 'Condu
 if conduct_png.exists():
     datas.append((str(conduct_png), 'icons'))
 
+# 设置应用图标
+icon_path = None
+if (repo_root / 'python-desktop-translator' / 'src' / 'icons' / 'Conduct.png').exists():
+    icon_path = str(repo_root / 'python-desktop-translator' / 'src' / 'icons' / 'Conduct.png')
+
 # QtWebEngine 资源与进程通常由 PyInstaller hooks 自动收集；若运行报缺失，再补充如下：
 # from PyInstaller.utils.hooks import collect_data_files
 # import PyQt5
@@ -87,6 +92,6 @@ coll = COLLECT(
 app = BUNDLE(
     coll,
     name='小铠同学.app',
-    icon=None,
+    icon=icon_path,
     bundle_identifier='com.xiaokai.translator',
 )
