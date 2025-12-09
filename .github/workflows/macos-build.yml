@@ -59,7 +59,7 @@ jobs:
           # Install PyQt5 using conda (pre-compiled binaries)
           conda install -c conda-forge -n build-env pyqt=5.15.9 pyqtwebengine=5.15.9 pyqt5-sip=12.12.2 -y
           # Install pyinstaller
-          conda run -n build-env pip install $PIP_OPTS pyinstaller
+          conda run -n build-env pip install $PIP_OPTS pyinstaller pillow
 
       - name: Build app with PyInstaller
         shell: bash -l {0}
