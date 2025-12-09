@@ -33,7 +33,20 @@ a = Analysis(
     pathex=[str(repo_root)],
     binaries=[],
     datas=datas,
-    hiddenimports=[],
+    hiddenimports=[
+        # PyQt5 基础模块
+        'PyQt5.QtCore',
+        'PyQt5.QtGui', 
+        'PyQt5.QtWidgets',
+        # QtWebEngine 相关
+        'PyQt5.QtWebEngine',
+        'PyQt5.QtWebEngineCore',
+        'PyQt5.QtWebEngineWidgets',
+        'PyQt5.QtWebChannel',
+        # 其他可能需要的模块
+        'sip',
+        'pkg_resources',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -75,5 +88,5 @@ app = BUNDLE(
     coll,
     name='小铠同学.app',
     icon=None,
-    bundle_identifier=None,
+    bundle_identifier='com.xiaokai.translator',
 )
