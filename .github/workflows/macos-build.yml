@@ -57,7 +57,7 @@ jobs:
             Pygments==2.18.0 \
             pynput==1.7.6
           # Install PyQt5 using conda (pre-compiled binaries)
-          conda install -c conda-forge -n build-env pyqt=5.15.9 pyqtwebengine=5.15.6 pyqt5-sip=12.11.0 -y
+          conda install -c conda-forge -n build-env pyqt=5.15.9 pyqtwebengine=5.15.9 pyqt5-sip=12.12.2 -y
           # Install pyinstaller
           conda run -n build-env pip install $PIP_OPTS pyinstaller
 
