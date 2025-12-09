@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.log
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# PyInstaller / build outputs
+build/
+dist/
+*.egg-info/
+*.spec
+
+# IDE / editor
+.vscode/
+.idea/
+*.iml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
