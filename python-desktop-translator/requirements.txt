@@ -1,5 +1,5 @@
 Flask==2.0.3
-PyQt5==5.15.4
+PyQt5==5.15.9
 requests==2.26.0
 pydub==0.25.1
 SpeechRecognition==3.8.1
