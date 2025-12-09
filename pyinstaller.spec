@@ -70,3 +70,10 @@ coll = COLLECT(
     upx_exclude=[],
     name='AI桌面助手'
 )
+
+app = BUNDLE(
+    coll,
+    name='小铠同学.app',
+    icon=None,
+    bundle_identifier=None,
+)
