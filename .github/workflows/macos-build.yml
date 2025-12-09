@@ -64,11 +64,17 @@ jobs:
       - name: Build app with PyInstaller
         shell: bash -l {0}
         run: |
+          echo "Starting PyInstaller build..."
           conda run -n build-env pyinstaller pyinstaller.spec --clean
+          echo "PyInstaller build completed"
 
-      - name: List dist
+      - name: Verify build output
         run: |
-          ls -la dist || true
+          echo "Checking dist directory..."
+          ls -la dist/ || echo "dist directory not found"
+          if [ -d "dist" ]; then
+            find dist -name "*.app" -o -name "*.dmg" || echo "No .app or .dmg files found"
+          fi
 
       - name: Build DMG (optional)
         if: ${{ github.event.inputs.build_dmg == 'true' }}
@@ -102,12 +108,5 @@ jobs:
           name: mac-dmg
           path: 小铠同学.dmg
 
-      - name: Create Release and Upload
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/小铠同学.app
-            小铠同学.dmg
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Note: Automatic release creation removed due to permission constraints
+      # You can manually create a release and download artifacts from the Actions tab
