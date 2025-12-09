@@ -63,11 +63,10 @@ jobs:
 
       - name: Build app with PyInstaller
         shell: bash -l {0}
+        env:
+          LC_ALL: en_US.UTF-8
+          LANG: en_US.UTF-8
         run: |
-          # 设置 UTF-8 编码环境变量
-          export PYTHONIOENCODING=utf-8
-          export LANG=en_US.UTF-8
-          export LC_ALL=en_US.UTF-8
           echo "Starting PyInstaller build..."
           conda run -n build-env pyinstaller pyinstaller.spec --clean
           echo "PyInstaller build completed"
@@ -93,7 +92,7 @@ jobs:
               --icon-size 100 \
               --app-drop-link 425 180 \
               "小铠同学.dmg" \
-              "dist/小铠同学.app"
+              "dist/XiaoKaiTranslator.app"
           else
             echo "[CI] create-dmg not installed, skipping DMG"
           fi
@@ -102,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: mac-app
-          path: dist/小铠同学.app
+          path: dist/XiaoKaiTranslator.app
 
       - name: Upload Artifacts (.dmg)
         uses: actions/upload-artifact@v4

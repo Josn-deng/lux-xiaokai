@@ -4,11 +4,6 @@ import sys
 import os
 from pathlib import Path
 
-# 设置正确的编码，避免 Unicode 编码错误
-os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
-if hasattr(sys, 'setdefaultencoding'):
-    sys.setdefaultencoding('utf-8')
-
 # 项目根路径与入口
 if '__file__' in globals():
     repo_root = Path(__file__).resolve().parent
@@ -37,10 +32,6 @@ if (repo_root / 'python-desktop-translator' / 'src' / 'icons' / 'Conduct.png').e
 # datas += qt_datas
 
 block_cipher = None
-
-# 设置 PyInstaller 运行时编码
-import os
-os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 a = Analysis(
     [str(entry)],
@@ -115,7 +106,14 @@ coll = COLLECT(
 
 app = BUNDLE(
     coll,
-    name='小铠同学.app',
+    name='XiaoKaiTranslator.app',
     icon=icon_path,
     bundle_identifier='com.xiaokai.translator',
+    info_plist={
+        'CFBundleDisplayName': '小铠同学',
+        'CFBundleName': '小铠同学',
+        'CFBundleVersion': '1.0.0',
+        'CFBundleShortVersionString': '1.0.0',
+        'NSHighResolutionCapable': True,
+    },
 )
