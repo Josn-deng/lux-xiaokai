@@ -40,14 +40,14 @@ jobs:
           python -c "import sys; print(sys.executable)"
 
       - name: Create conda environment and install deps
+        shell: bash -l {0}
         run: |
           set -e
           conda create -n build-env python=${{ github.event.inputs.python_version || '3.11' }} -y
-          conda activate build-env
           echo "[CI] Installing project requirements"
           # Install non-PyQt requirements using pip
           PIP_OPTS="--retries 5 --timeout 60"
-          pip install $PIP_OPTS \
+          conda run -n build-env pip install $PIP_OPTS \
             Flask==2.0.3 \
             requests==2.26.0 \
             pydub==0.25.1 \
@@ -57,14 +57,14 @@ jobs:
             Pygments==2.18.0 \
             pynput==1.7.6
           # Install PyQt5 using conda (pre-compiled binaries)
-          conda install -c conda-forge pyqt=5.15.9 pyqtwebengine=5.15.6 pyqt5-sip=12.11.0 -y
+          conda install -c conda-forge -n build-env pyqt=5.15.9 pyqtwebengine=5.15.6 pyqt5-sip=12.11.0 -y
           # Install pyinstaller
-          pip install $PIP_OPTS pyinstaller
+          conda run -n build-env pip install $PIP_OPTS pyinstaller
 
       - name: Build app with PyInstaller
+        shell: bash -l {0}
         run: |
-          conda activate build-env
-          pyinstaller pyinstaller.spec --clean
+          conda run -n build-env pyinstaller pyinstaller.spec --clean
 
       - name: List dist
         run: |
@@ -72,10 +72,10 @@ jobs:
 
       - name: Build DMG (optional)
         if: ${{ github.event.inputs.build_dmg == 'true' }}
+        shell: bash -l {0}
         run: |
           brew update || true
           brew install create-dmg || true
-          conda activate build-env
           if command -v create-dmg >/dev/null 2>&1; then
             create-dmg \
               --volname "小铠同学 安装" \
