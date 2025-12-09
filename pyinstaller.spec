@@ -41,16 +41,31 @@ a = Analysis(
     hiddenimports=[
         # PyQt5 基础模块
         'PyQt5.QtCore',
-        'PyQt5.QtGui', 
+        'PyQt5.QtGui',
         'PyQt5.QtWidgets',
         # QtWebEngine 相关
         'PyQt5.QtWebEngine',
         'PyQt5.QtWebEngineCore',
         'PyQt5.QtWebEngineWidgets',
         'PyQt5.QtWebChannel',
+        # macOS 特定模块
+        'PyQt5.QtDBus',  # macOS 上可能需要
         # 其他可能需要的模块
         'sip',
         'pkg_resources',
+        # 应用特定模块
+        'core',
+        'core.bootstrap',
+        'core.events',
+        'core.hotkeys',
+        'ui',
+        'ui.floating_window',
+        'ui.theme_manager',
+        'ui.tray',
+        'ui.bubbles',
+        'services',
+        'models',
+        'utils',
     ],
     hookspath=[],
     hooksconfig={},
